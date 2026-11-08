@@ -7,6 +7,8 @@ document.addEventListener('DOMContentLoaded', function () {
   var dropdown = document.querySelector('.nav__dropdown');
   var form = document.querySelector('#contact-form');
   var status = document.querySelector('.form-status');
+  var fallbackRedirect = form.querySelector('[name="_redirect"]');
+  fallbackRedirect.value = window.location.href.split('?')[0];
 
   menuButton.addEventListener('click', function () {
     var expanded = menuButton.getAttribute('aria-expanded') === 'true';
