@@ -10,6 +10,32 @@ document.addEventListener('DOMContentLoaded', function () {
   var fallbackRedirect = form.querySelector('[name="_redirect"]');
   fallbackRedirect.value = window.location.href.split('?')[0];
 
+  var reviews = [
+    { brand: 'CIEL', title: 'Надёжная поддержка проекта', text: 'Команда Drupal-coder помогает нам развивать сайт, быстро решает возникающие задачи и предлагает взвешенные технические решения. Мы ценим прозрачный процесс работы и внимательное отношение к проекту.', author: 'Команда CIEL' },
+    { brand: 'LPCMA', title: 'Сайт развивается вместе с проектом', text: 'Специалисты помогают поддерживать сайт в рабочем состоянии, оперативно разбираются с задачами и предлагают понятные решения для дальнейшего развития.', author: 'Команда медицинского центра' },
+    { brand: 'Cableman', title: 'Оперативная работа над задачами', text: 'Команда внимательно относится к деталям, помогает улучшать сервис и держит нас в курсе хода работ. Сотрудничество помогает планомерно развивать проект.', author: 'Команда Cableman' },
+    { brand: 'Estée Lauder', title: 'Внимание к качеству и деталям', text: 'Нам важно, чтобы сайт оставался удобным и стабильным. Команда помогает решать технические вопросы и последовательно улучшать пользовательский опыт.', author: 'Команда проекта' }
+  ];
+  var reviewIndex = 0;
+  var reviewFields = {
+    brand: document.querySelector('[data-review-brand]'),
+    title: document.querySelector('[data-review-title]'),
+    text: document.querySelector('[data-review-text]'),
+    author: document.querySelector('[data-review-author]'),
+    count: document.querySelector('[data-review-count]')
+  };
+  function showReview(index) {
+    reviewIndex = (index + reviews.length) % reviews.length;
+    var review = reviews[reviewIndex];
+    reviewFields.brand.textContent = review.brand;
+    reviewFields.title.textContent = review.title;
+    reviewFields.text.textContent = review.text;
+    reviewFields.author.textContent = review.author;
+    reviewFields.count.textContent = String(reviewIndex + 1).padStart(2, '0') + ' / ' + String(reviews.length).padStart(2, '0');
+  }
+  document.querySelector('[data-review-prev]').addEventListener('click', function () { showReview(reviewIndex - 1); });
+  document.querySelector('[data-review-next]').addEventListener('click', function () { showReview(reviewIndex + 1); });
+
   menuButton.addEventListener('click', function () {
     var expanded = menuButton.getAttribute('aria-expanded') === 'true';
     menuButton.setAttribute('aria-expanded', String(!expanded));
